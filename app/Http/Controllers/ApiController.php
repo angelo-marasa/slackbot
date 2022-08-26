@@ -57,7 +57,7 @@ class ApiController extends Controller
     {
         return response()->json([
             "response_type" => "in_channel",
-            "text" => $request
+            "text" => "testing"
         ]);
     }
 }
