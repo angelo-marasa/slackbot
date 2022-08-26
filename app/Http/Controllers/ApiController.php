@@ -14,7 +14,7 @@ class ApiController extends Controller
         $data = '';
 
         foreach ($results as $result) {
-            $data .=  $result['fields']['Site Name'] . "\n";
+            $data .=  $result['fields']['Site Name'] . "\n-";
         }
 
         $obj = (object) array(
