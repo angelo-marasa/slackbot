@@ -10,10 +10,16 @@ class ApiController extends Controller
 {
     public function getVelocityList()
     {
-        $result = Airtable::table('Sites')->all();
+        $results = Airtable::table('Sites')->all();
+        $data = '';
+
+        foreach ($results as $result) {
+            $data .=  '* ' . $result['fields']['Site Name'];
+        }
+
         return response()->json([
             "response_type" => "in_channel",
-            "text" => $result
+            "text" => $data
         ]);
     }
 
