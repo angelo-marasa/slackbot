@@ -55,6 +55,8 @@ class ApiController extends Controller
 
     public function getVelocityListTest(Request $request)
     {
-        return response()->json($request);
+        return response()->json([
+            "response_type" => "in_channel"
+        ]);
     }
 }
