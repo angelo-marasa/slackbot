@@ -134,7 +134,7 @@ class ApiController extends Controller
             return response()->json(
                 [
                 "response_type" => "in_channel",
-                'text' => $request->text . " has been live for " . $date->diffForHumans() . ". It launched ". $date->toDayDateTimeString()
+                'text' => $request->text . " has been live since " . $date->diffForHumans() . ". It launched ". $date->toDayDateTimeString()
                 ]
             );
         } else {
