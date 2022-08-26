@@ -52,4 +52,12 @@ class ApiController extends Controller
             return response()->json(['err' => 'This property does not have a staging listed.']);
         }
     }
+
+    public function getVelocityListTest(Request $request)
+    {
+        return response()->json([
+            "response_type" => "in_channel",
+            "text" => $request
+        ]);
+    }
 }

@@ -26,4 +26,5 @@ Route::prefix('v1')->group(function () {
     Route::get('/staging-url', [ApiController::class, 'StagingURL']);
     Route::get('/status', [ApiController::class, 'getStatus']);
     Route::get('/launch', [ApiController::class, 'getLaunchDate']);
+    Route::post('/velocity', [ApiController::class, 'getVelocityListTest']);
 });
