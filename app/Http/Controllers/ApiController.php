@@ -14,14 +14,14 @@ class ApiController extends Controller
         $data = '';
 
         foreach ($results as $result) {
-            $data .=  '* ' . $result['fields']['Site Name'] . ' :smile: ';
+            $data .=  $result['fields']['Site Name'] . '/\n';
         }
 
         $obj = (object) array(
             "type" => "section",
                 "text" => [
                     "type" => "mrkdwn",
-                    "text" => "This message contains a URL http://example.com/\nSo does this one: www.example.com\nThis message contains a URL <http://example.com/>\n<http://www.example.com|This message *is* a link>\n<mailto:bob@example.com|Email Bob Roberts>"
+                    "text" => $data
                 ])
                 ;
         $blocks = [];
