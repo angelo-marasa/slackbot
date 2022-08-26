@@ -21,7 +21,7 @@ class ApiController extends Controller
             "type" => "section",
                 "text" => [
                     "type" => "mrkdwn",
-                    "text" => $data
+                    "text" => "This message contains a URL http://example.com/\nSo does this one: www.example.com\nThis message contains a URL <http://example.com/>\n<http://www.example.com|This message *is* a link>\n<mailto:bob@example.com|Email Bob Roberts>"
                 ])
                 ;
         $blocks = [];
