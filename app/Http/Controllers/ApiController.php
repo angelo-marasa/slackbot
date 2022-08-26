@@ -125,14 +125,25 @@ class ApiController extends Controller
         }
     }
 
-    public function getLaunchDate()
+    public function getLaunchDate(Request $request)
     {
-        $result = Airtable::where('Site Name', 'AAA')->get();
-        $date = Carbon::parse($result[0]['fields']['Launch Date'])->subHours(4);
-        ;
-        return response()->json([
-            'long_ago' => $date->diffForHumans(),
-            'date_time' => $date->toDayDateTimeString()
-        ]);
+        $result = Airtable::where('Site Name', $request->text)->get();
+
+        if (!$result->isEmpty()) {
+            $date = Carbon::parse($result[0]['fields']['Launch Date'])->subHours(4);
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => $request->text . " has been live for " . $date->diffForHumans() . ". It launched ". $date->toDayDateTimeString()
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
     }
 }
