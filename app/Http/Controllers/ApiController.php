@@ -35,7 +35,6 @@ class ApiController extends Controller
 
     public function getAccountManagers(Request $request)
     {
-        $request->text = 'AAA';
         $result = Airtable::where('Site Name', $request->text)->get();
 
         if (!$result->isEmpty()) {
