@@ -14,7 +14,7 @@ class ApiController extends Controller
         $data = '';
         $count = 1;
         foreach ($results as $result) {
-            $data .=  $count . ". " . $result['fields']['Site Name'] . "\n";
+            $data .=  $count . ". " . ucfirst($result['fields']['Site Name']) . "\n";
             $count++;
         }
 
@@ -35,7 +35,7 @@ class ApiController extends Controller
 
     public function getAccountManagers(Request $request)
     {
-        $result = Airtable::where('Site Name', $request->text)->get();
+        $result = Airtable::where('Site Name', strtolower($request->text))->get();
 
         if (!$result->isEmpty()) {
             return response()->json(
@@ -56,7 +56,7 @@ class ApiController extends Controller
 
     public function getStatus(Request $request)
     {
-        $result = Airtable::where('Site Name', $request->text)->get();
+        $result = Airtable::where('Site Name', strtolower($request->text))->get();
 
         if (!$result->isEmpty()) {
             return response()->json(
@@ -77,7 +77,7 @@ class ApiController extends Controller
 
     public function LiveURL(Request $request)
     {
-        $result = Airtable::where('Site Name', $request->text)->get();
+        $result = Airtable::where('Site Name', strtolower($request->text))->get();
         if (!$result->isEmpty()) {
             return response()->json(
                 [
@@ -97,7 +97,7 @@ class ApiController extends Controller
 
     public function StagingURL(Request $request)
     {
-        $result = Airtable::where('Site Name', $request->text)->get();
+        $result = Airtable::where('Site Name', strtolower($request->text))->get();
 
         if (!$result->isEmpty()) {
             if ($result[0]['fields']['Staging URL']) {
@@ -127,7 +127,7 @@ class ApiController extends Controller
 
     public function getLaunchDate(Request $request)
     {
-        $result = Airtable::where('Site Name', $request->text)->get();
+        $result = Airtable::where('Site Name', strtolower($request->text))->get();
 
         if (!$result->isEmpty()) {
             $date = Carbon::parse($result[0]['fields']['Launch Date'])->subHours(4);
