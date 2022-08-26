@@ -12,9 +12,10 @@ class ApiController extends Controller
     {
         $results = Airtable::table('Sites')->all();
         $data = '';
-
+        $count = 1;
         foreach ($results as $result) {
-            $data .=  "* " . $result['fields']['Site Name'] . "\n";
+            $data .=  $count . ". " . $result['fields']['Site Name'] . "\n";
+            $count++;
         }
 
         $obj = (object) array(
