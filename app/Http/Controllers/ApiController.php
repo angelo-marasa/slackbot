@@ -14,7 +14,7 @@ class ApiController extends Controller
         $data = '';
         $count = 1;
         foreach ($results as $result) {
-            $data .=  $count . ". " . ucfirst($result['fields']['Site Name']) . "\n";
+            $data .=  $count . ". " . ucwords($result['fields']['Site Name']) . "\n";
             $count++;
         }
 
