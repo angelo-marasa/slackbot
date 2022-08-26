@@ -54,10 +54,25 @@ class ApiController extends Controller
         }
     }
 
-    public function getStatus()
+    public function getStatus(Request $request)
     {
-        $result = Airtable::where('Site Name', 'AAA')->get();
-        return response()->json(['status' => $result[0]['fields']['Status']]);
+        $result = Airtable::where('Site Name', $request->text)->get();
+
+        if (!$result->isEmpty()) {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => $request->text . " is " . $result[0]['fields']['Status']
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
     }
 
     public function getLaunchDate()
