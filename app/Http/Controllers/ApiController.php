@@ -33,10 +33,24 @@ class ApiController extends Controller
         ]);
     }
 
-    public function getAccountManagers()
+    public function getAccountManagers(Request $request)
     {
-        $result = Airtable::where('Site Name', 'AAA')->get();
-        return response()->json(['account_manager' => $result[0]['fields']['Account Manager']]);
+        $result = Airtable::where('Site Name', $request->text)->get();
+        if ($result) {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "The account manager for ". $request->text . " is: " . $result[0]['fields']['Account Manager']
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
     }
 
     public function getStatus()

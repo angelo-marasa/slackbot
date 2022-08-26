@@ -21,8 +21,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::prefix('v1')->group(function () {
     Route::post('/velocity', [ApiController::class, 'getVelocityList']);
-    Route::get('/velocity', [ApiController::class, 'getVelocityList']);
-    Route::get('/am', [ApiController::class, 'getAccountManagers']);
+    Route::post('/am', [ApiController::class, 'getAccountManagers']);
+    
     Route::get('/live-url', [ApiController::class, 'LiveURL']);
     Route::get('/staging-url', [ApiController::class, 'StagingURL']);
     Route::get('/status', [ApiController::class, 'getStatus']);
