@@ -22,6 +22,7 @@ class ApiController extends Controller
             "type" => "section",
                 "text" => [
                     "type" => "mrkdwn",
+                    "response_type" => "in_channel",
                     "text" => $data
                 ])
                 ;
