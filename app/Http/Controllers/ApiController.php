@@ -22,14 +22,14 @@ class ApiController extends Controller
             "type" => "section",
                 "text" => [
                     "type" => "mrkdwn",
-                    "response_type" => "in_channel",
                     "text" => $data
                 ])
                 ;
         $blocks = [];
         array_push($blocks, $obj);
         return response()->json([
-           "blocks" => $blocks
+            "response_type" => "in_channel",
+            "blocks" => $blocks
         ]);
     }
 
