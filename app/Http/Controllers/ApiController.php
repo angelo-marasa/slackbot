@@ -18,8 +18,13 @@ class ApiController extends Controller
         }
 
         return response()->json([
-            "response_type" => "in_channel",
-            "text" => $data
+            "blocks" => [
+                "type" => "section",
+                "text" => [
+                    "type" => "mrkdwn",
+                    "text" => $data
+                ]
+            ],
         ]);
     }
 
