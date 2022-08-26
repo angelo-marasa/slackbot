@@ -14,12 +14,11 @@ class ApiController extends Controller
         $data = '';
 
         foreach ($results as $result) {
-            $data .=  '* ' . $result['fields']['Site Name'];
+            $data .=  $result['fields']['Site Name'] . '\n';
         }
 
         return response()->json([
             "response_type" => "in_channel",
-            "type" => "mrkdwn",
             "text" => $data
         ]);
     }
