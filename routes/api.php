@@ -24,8 +24,8 @@ Route::prefix('v1')->group(function () {
     Route::post('/am', [ApiController::class, 'getAccountManagers']);
     Route::post('/status', [ApiController::class, 'getStatus']);
     Route::post('/live-url', [ApiController::class, 'LiveURL']);
+    Route::post('/staging-url', [ApiController::class, 'StagingURL']);
     
-    Route::get('/staging-url', [ApiController::class, 'StagingURL']);
     Route::get('/launch', [ApiController::class, 'getLaunchDate']);
     Route::post('/vel', [ApiController::class, 'getVelocityListTest']);
 });
