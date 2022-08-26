@@ -19,6 +19,7 @@ class ApiController extends Controller
 
         return response()->json([
             "response_type" => "in_channel",
+            "type" => "mrkdwn",
             "text" => $data
         ]);
     }
