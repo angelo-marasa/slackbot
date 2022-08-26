@@ -17,14 +17,17 @@ class ApiController extends Controller
             $data .=  $result['fields']['Site Name'] . '\n';
         }
 
-        return response()->json([
-            "blocks" => [
-                "type" => "section",
+        $obj = (object) array(
+            "type" => "section",
                 "text" => [
                     "type" => "mrkdwn",
                     "text" => $data
-                ]
-            ],
+                ])
+                ;
+        $blocks = [];
+        array_push($blocks, $obj);
+        return response()->json([
+           "blocks" => $blocks
         ]);
     }
 
