@@ -11,7 +11,10 @@ class ApiController extends Controller
     public function getVelocityList()
     {
         $result = Airtable::table('Sites')->all();
-        return response()->json(['sites' => $result]);
+        return response()->json([
+            "response_type" => "in_channel",
+            "text" => $result
+        ]);
     }
 
     public function getAccountManagers()
@@ -57,7 +60,7 @@ class ApiController extends Controller
     {
         return response()->json([
             "response_type" => "in_channel",
-            "text" => "Token is: " . $request->token
+            "text" => "Text is: " . $request->text
         ]);
     }
 }

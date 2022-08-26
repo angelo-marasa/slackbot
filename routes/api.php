@@ -20,7 +20,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::prefix('v1')->group(function () {
-    Route::get('/velocity', [ApiController::class, 'getVelocityList']);
+    Route::post('/velocity', [ApiController::class, 'getVelocityList']);
     Route::get('/am', [ApiController::class, 'getAccountManagers']);
     Route::get('/live-url', [ApiController::class, 'LiveURL']);
     Route::get('/staging-url', [ApiController::class, 'StagingURL']);
