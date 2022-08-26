@@ -75,6 +75,56 @@ class ApiController extends Controller
         }
     }
 
+    public function LiveURL(Request $request)
+    {
+        $result = Airtable::where('Site Name', $request->text)->get();
+        if (!$result->isEmpty()) {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "Live URL for " . $request->text . " is " . $result[0]['fields']['Live URL']
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
+    }
+
+    public function StagingURL(Request $request)
+    {
+        $result = Airtable::where('Site Name', $request->text)->get();
+
+        if (!$result->isEmpty()) {
+            if ($result[0]['fields']['Staging URL']) {
+                return response()->json(
+                    [
+                    "response_type" => "in_channel",
+                    'text' => "Staging URL for " . $request->text . " is " . $result[0]['fields']['Staging URL']
+                    ]
+                );
+            } else {
+                return response()->json(
+                    [
+                    "response_type" => "in_channel",
+                    'text' => $request->text . " does not have a staging URL listed."
+                    ]
+                );
+            }
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
+    }
+
     public function getLaunchDate()
     {
         $result = Airtable::where('Site Name', 'AAA')->get();
@@ -83,30 +133,6 @@ class ApiController extends Controller
         return response()->json([
             'long_ago' => $date->diffForHumans(),
             'date_time' => $date->toDayDateTimeString()
-        ]);
-    }
-
-    public function LiveURL()
-    {
-        $result = Airtable::where('Site Name', 'AAA')->get();
-        return response()->json($result[0]['fields']['Live URL']);
-    }
-
-    public function StagingURL()
-    {
-        $result = Airtable::where('Site Name', 'AAA')->get();
-        if ($result[0]['fields']['Staging URL']) {
-            return response()->json(['staging_url' => $result[0]['fields']['Staging URL']]);
-        } else {
-            return response()->json(['err' => 'This property does not have a staging listed.']);
-        }
-    }
-
-    public function getVelocityListTest(Request $request)
-    {
-        return response()->json([
-            "response_type" => "in_channel",
-            "text" => "Text is: " . $request->text
         ]);
     }
 }
