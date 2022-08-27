@@ -10,14 +10,6 @@ class ApiController extends Controller
 {
     public function getVelocityList(Request $request)
     {
-
-        // if ($request->text) {
-        //     return response()->json([
-        //         "response_type" => "in_channel",
-        //         "blocks" => $blocks
-        //     ]);
-        // }
-        
         $results = Airtable::table('Sites')->all();
         $data = '';
         $count = 1;
@@ -153,22 +145,5 @@ class ApiController extends Controller
                 ]
             );
         }
-    }
-
-    public function homeScreen(Request $request)
-    {
-        $obj = (object) array(
-            "type" => "section",
-                "text" => [
-                    "type" => "mrkdwn",
-                    "text" => "A simple stack of blocks for the simple sample Block Kit Home tab."
-                ])
-                ;
-        $blocks = [];
-        array_push($blocks, $obj);
-        return response()->json([
-            "response_type" => "in_channel",
-            "blocks" => $blocks
-        ]);
     }
 }
