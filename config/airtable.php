@@ -42,10 +42,10 @@ return [
     'tables' => [
 
         'default' => [
-            'name' => 'Sites',
+            'name' => 'Velocity Sites',
         ],
         'Sites' => [
-            'name' => 'Sites'
+            'name' => 'Velocity Sites'
         ],
 
     ],
