@@ -190,7 +190,6 @@ class ApiController extends Controller
         ->asArray();
 
         if (!$result->isEmpty()) {
-            $date = Carbon::parse($result[0]['fields']['Launch Date'])->subHours(4);
             return response()->json(
                 [
                 "response_type" => "in_channel",
