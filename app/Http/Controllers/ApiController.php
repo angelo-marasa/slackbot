@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Airtable;
 use Carbon\Carbon;
+use Akaunting\Money\Currency;
+use Akaunting\Money\Money;
 
 class ApiController extends Controller
 {
@@ -181,6 +183,7 @@ class ApiController extends Controller
 
     public function getRetainerDetails(Request $request)
     {
+        $request->text = 'aaa';
         $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
 
         $recordset = $client->table('Clients')
@@ -189,11 +192,12 @@ class ApiController extends Controller
         ->execute()
         ->asArray();
 
-        if (!$result->isEmpty()) {
+        if ($recordset) {
+            $date = Carbon::parse($recordset[0]['Last Updated']);
             return response()->json(
                 [
                 "response_type" => "in_channel",
-                'text' => $request->text . " has a monthly retainer of " . $recordset['Retainer'] . ". Last updated on: ". $recordset['Last Updated']
+                'text' => $request->text . " has a monthly retainer of " . Money::USD($recordset[0]['Retainer'], true) . ". Last updated on: ". $date->toFormattedDateString()
                 ]
             );
         } else {
