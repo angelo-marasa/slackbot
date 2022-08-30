@@ -10,7 +10,8 @@
         "laravel/framework": "^9.19",
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
-        "tapp/laravel-airtable": "^1.4"
+        "tapp/laravel-airtable": "^1.4",
+        "zadorin/airtable-php": "^0.6.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

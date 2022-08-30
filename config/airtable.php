@@ -44,7 +44,7 @@ return [
         'default' => [
             'name' => 'Velocity Sites',
         ],
-        'Sites' => [
+        'Velocity Sites' => [
             'name' => 'Velocity Sites'
         ],
 
