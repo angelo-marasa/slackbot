@@ -271,6 +271,7 @@ class ApiController extends Controller
 
     public function getDashboardDetails(Request $request)
     {
+        $request->text = 'ksl park';
         $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
 
         $recordset = $client->table('Dashboards')
@@ -279,18 +280,26 @@ class ApiController extends Controller
         ->execute()
         ->asArray();
 
+
         if ($recordset) {
+            $elements = [];
+
+            $element =  (object) array(
+                "type" => "button",
+                "text" => [
+                    "type" => "plain_text",
+                    "text" => "View " . $request->text . " Dashboard",
+                    "emoji" => true
+                ],
+                    "value" => "click_me_111",
+                    "url" => $recordset[0]['URL']
+                );
+    
+            array_push($elements, $element);
             $obj = (object) array(
-                "type" => "section",
-                    "text" => [
-                        "type" => "actions",
-                        "elements" => [
-                            "type" => "button",
-                            "text" => "View " . $request->text . " Dashboard",
-                        ],
-                        "value" => "click_me_111",
-                        "url" => $recordset[0]['URL']
-                    ]);
+                    "type" => "actions",
+                    "elements" => $elements,
+                );
             $divider = (object) array(
                 "type" => "divider"
             );
@@ -309,6 +318,7 @@ class ApiController extends Controller
             $blocks = [];
             array_push($blocks, $obj);
             array_push($blocks, $divider);
+            array_push($blocks, $context);
 
 
             return response()->json([
