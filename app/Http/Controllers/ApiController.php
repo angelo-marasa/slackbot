@@ -271,7 +271,6 @@ class ApiController extends Controller
 
     public function getDashboardDetails(Request $request)
     {
-        $request->text = 'ksl park';
         $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
 
         $recordset = $client->table('Dashboards')
@@ -283,7 +282,6 @@ class ApiController extends Controller
 
         if ($recordset) {
             $elements = [];
-
             $element =  (object) array(
                 "type" => "button",
                 "text" => [
@@ -294,23 +292,30 @@ class ApiController extends Controller
                     "value" => "click_me_111",
                     "url" => $recordset[0]['URL']
                 );
-    
             array_push($elements, $element);
+
+
             $obj = (object) array(
                     "type" => "actions",
                     "elements" => $elements,
                 );
+
             $divider = (object) array(
                 "type" => "divider"
             );
 
-            $context = (object) array(
-                "type" => "context",
-                "elements" => [
+
+            $contextElements = [];
+            $contextElement =  (object) array(
                     "type" => "mrkdwn",
                     "text" => "Account manager for this dashboard is: " . $recordset[0]['Account Manager']
+                );
 
-                ]
+            array_push($contextElements, $contextElement);
+
+            $context = (object) array(
+                "type" => "context",
+                "elements" => [$contextElement]
             );
 
 
