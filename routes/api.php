@@ -28,4 +28,5 @@ Route::prefix('v1')->group(function () {
     Route::post('/launch', [ApiController::class, 'getLaunchDate']);
     Route::post('/clients', [ApiController::class, 'getClientList']);
     Route::post('/retainer', [ApiController::class, 'getRetainerDetails']);
+    Route::post('/hosted', [ApiController::class, 'getHostingInformation']);
 });

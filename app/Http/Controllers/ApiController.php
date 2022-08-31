@@ -184,7 +184,6 @@ class ApiController extends Controller
 
     public function getRetainerDetails(Request $request)
     {
-        $request->text = 'aaa';
         $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
 
         $recordset = $client->table('Clients')
@@ -199,6 +198,33 @@ class ApiController extends Controller
                 [
                 "response_type" => "in_channel",
                 'text' => $request->text . " has a monthly retainer of " . Money::USD($recordset[0]['Retainer'], true) . ". Last updated on: ". $date->toFormattedDateString()
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
+    }
+
+    public function getHostingInformation(Request $request)
+    {
+        $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
+
+        $recordset = $client->table('Clients')
+        ->select('*')
+        ->where(['Client Name' => strtolower($request->text)])
+        ->execute()
+        ->asArray();
+
+        if ($recordset) {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => $request->text . " is hosted with: " . $recordset[0]['Hosted']
                 ]
             );
         } else {
