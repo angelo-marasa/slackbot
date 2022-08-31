@@ -156,6 +156,7 @@ class ApiController extends Controller
 
         $recordset = $client->table('Clients')
         ->select('Client Name')
+        ->orderBy(['Client Name' => 'desc'])
         ->execute()
         ->asArray();
 
