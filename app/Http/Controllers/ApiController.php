@@ -287,8 +287,9 @@ class ApiController extends Controller
                         "elements" => [
                             "type" => "button",
                             "text" => "View " . $request->text . " Dashboard",
-                            "url" => $recordset[0]['URL']
-                        ]
+                        ],
+                        "value" => "click_me_111",
+                        "url" => $recordset[0]['URL']
                     ]);
             $divider = (object) array(
                 "type" => "divider"
