@@ -236,4 +236,63 @@ class ApiController extends Controller
             );
         }
     }
+
+    public function getDashboardsList(Request $request)
+    {
+        $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
+
+        $recordset = $client->table('Dashboards')
+        ->select('Dashboard Name')
+        ->orderBy(['Dashboard Name' => 'desc'])
+        ->execute()
+        ->asArray();
+
+        $data = '';
+        $count = 1;
+        foreach ($recordset as $result) {
+            $data .=  $count . ". " . ucwords($result['Client Name']) . "\n";
+            $count++;
+        }
+
+        $obj = (object) array(
+            "type" => "section",
+                "text" => [
+                    "type" => "mrkdwn",
+                    "text" => $data
+                ])
+                ;
+        $blocks = [];
+        array_push($blocks, $obj);
+        return response()->json([
+            "response_type" => "in_channel",
+            "blocks" => $blocks
+        ]);
+    }
+
+    public function getDashboardDetails(Request $request)
+    {
+        $client = new \Zadorin\Airtable\Client(env('AIRTABLE_KEY'), env('AIRTABLE_BASE'));
+
+        $recordset = $client->table('Dashboards')
+        ->select('*')
+        ->where(['Dashboard Name' => strtolower($request->text)])
+        ->execute()
+        ->asArray();
+
+        if ($recordset) {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => $request->text . " dashboard URL: " . $recordset[0]['URL'] . ". Account manager for this dashboard is: " . $recordset[0]['Account Manager']
+                ]
+            );
+        } else {
+            return response()->json(
+                [
+                "response_type" => "in_channel",
+                'text' => "No results found for ". $request->text
+                ]
+            );
+        }
+    }
 }
