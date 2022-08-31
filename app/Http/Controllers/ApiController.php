@@ -250,7 +250,7 @@ class ApiController extends Controller
         $data = '';
         $count = 1;
         foreach ($recordset as $result) {
-            $data .=  $count . ". " . ucwords($result['Client Name']) . "\n";
+            $data .=  $count . ". " . ucwords($result['Dashboard Name']) . "\n";
             $count++;
         }
 

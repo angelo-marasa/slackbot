@@ -29,6 +29,6 @@ Route::prefix('v1')->group(function () {
     Route::post('/clients', [ApiController::class, 'getClientList']);
     Route::post('/retainer', [ApiController::class, 'getRetainerDetails']);
     Route::post('/hosted', [ApiController::class, 'getHostingInformation']);
-    Route::post('/dashboards', [ApiController::class, 'getDashboardsList']);
+    Route::get('/dashboards', [ApiController::class, 'getDashboardsList']);
     Route::post('/dashboard', [ApiController::class, 'getDashboardDetails']);
 });
