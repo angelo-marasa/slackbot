@@ -280,12 +280,47 @@ class ApiController extends Controller
         ->asArray();
 
         if ($recordset) {
-            return response()->json(
-                [
-                "response_type" => "in_channel",
-                'text' => $request->text . " dashboard URL: " . $recordset[0]['URL'] . ". Account manager for this dashboard is: " . $recordset[0]['Account Manager']
+            $obj = (object) array(
+                "type" => "section",
+                    "text" => [
+                        "type" => "actions",
+                        "elements" => [
+                            "type" => "button",
+                            "text" => "View " . $request->text . " Dashboard",
+                            "url" => $recordset[0]['URL']
+                        ]
+                    ]);
+            $divider = (object) array(
+                "type" => "divider"
+            );
+
+            $context = (object) array(
+                "type" => "context",
+                "elements" => [
+                    "type" => "mrkdwn",
+                    "text" => "Account manager for this dashboard is: " . $recordset[0]['Account Manager']
+
                 ]
             );
+
+
+
+            $blocks = [];
+            array_push($blocks, $obj);
+            array_push($blocks, $divider);
+
+
+            return response()->json([
+                "response_type" => "in_channel",
+                "blocks" => $blocks
+            ]);
+
+        // return response()->json(
+            //     [
+            //     "response_type" => "in_channel",
+            //     'text' => $request->text . " dashboard URL: " . $recordset[0]['URL'] . ". Account manager for this dashboard is: " . $recordset[0]['Account Manager']
+            //     ]
+            // );
         } else {
             return response()->json(
                 [
